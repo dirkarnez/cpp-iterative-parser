@@ -1,0 +1,78 @@
+#include <iostream>
+#include <stack>
+#include <string>
+
+bool isOperator(char c) {
+    return (c == '+' || c == '-' || c == '*' || c == '/');
+}
+
+int performOperation(char operation, int operand1, int operand2) {
+    switch (operation) {
+        case '+':
+            return operand1 + operand2;
+        case '-':
+            return operand1 - operand2;
+        case '*':
+            return operand1 * operand2;
+        case '/':
+            return operand1 / operand2;
+        default:
+            return 0;
+    }
+}
+
+int evaluateExpression(const std::string& expression) {
+    std::stack<int> operandStack;
+    std::stack<char> operatorStack;
+    
+    int i = 0;
+
+    for (char c : expression) {
+        if (c == 0x20 || c == 0x9 || c == 0xD) {
+            continue;
+        } else if (isdigit(c)) {
+            int operand = 0;
+            while (isdigit(c)) {
+                operand = operand * 10 + (c - '0');
+                c = expression[++i];
+            }
+            operandStack.push(operand);
+        } else if (isOperator(c)) {
+            while (!operatorStack.empty() && isOperator(operatorStack.top())) {
+                int operand2 = operandStack.top();
+                operandStack.pop();
+                int operand1 = operandStack.top();
+                operandStack.pop();
+                char op = operatorStack.top();
+                operatorStack.pop();
+                int result = performOperation(op, operand1, operand2);
+                operandStack.push(result);
+            }
+            operatorStack.push(c);
+        }
+    }
+
+    while (!operatorStack.empty()) {
+        int operand2 = operandStack.top();
+        operandStack.pop();
+        int operand1 = operandStack.top();
+        operandStack.pop();
+        char op = operatorStack.top();
+        operatorStack.pop();
+        int result = performOperation(op, operand1, operand2);
+        operandStack.push(result);
+    }
+
+    return operandStack.top();
+}
+
+int main() {
+    std::string expression = "5 + 10";
+    std::cout << "Enter an expression: ";
+    // std::getline(std::cin, expression);
+
+    int result = evaluateExpression(expression);
+    std::cout << "Result: " << result << std::endl;
+
+    return 0;
+}
