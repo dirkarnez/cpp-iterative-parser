@@ -1,6 +1,10 @@
 #include <iostream>
 #include <stack>
 #include <string>
+#ifdef __EMSCRIPTEN__ 
+    #include <emscripten/bind.h>
+    using namespace emscripten;
+#endif
 
 bool isOperator(char c) {
     return (c == '+' || c == '-' || c == '*' || c == '/');
@@ -66,6 +70,7 @@ int evaluateExpression(const std::string& expression) {
     return operandStack.top();
 }
 
+#ifndef __EMSCRIPTEN__ 
 int main() {
     std::string expression = "5 + 10";
     std::cout << "Enter an expression: ";
@@ -76,3 +81,12 @@ int main() {
 
     return 0;
 }
+#endif
+
+#ifdef __EMSCRIPTEN__ 
+    EMSCRIPTEN_BINDINGS(my_module) {
+        function("evaluateExpression", &evaluateExpression);
+    }
+#endif
+
+
