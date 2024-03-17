@@ -11,7 +11,6 @@ SET PATH=^
 %DOWNLOADS_DIR%\x86_64-8.1.0-release-posix-seh-rt_v6-rev0\mingw64;^
 %DOWNLOADS_DIR%\x86_64-8.1.0-release-posix-seh-rt_v6-rev0\mingw64\bin;^
 %DOWNLOADS_DIR%\cmake-3.26.1-windows-x86_64\bin;^
-%DOWNLOADS_DIR%\node-v18.18.0-win-x64\node-v18.18.0-win-x64;^
 %PYTHON_DIR%;^
 %PYTHON_DIR%\Scripts;
 
@@ -22,9 +21,13 @@ SET PATH=^
 
 if exist cmake-build rmdir /s /q cmake-build
 
+@REM -DBUILD_EMSCRIPTEN=ON ^
+@REM -DCMAKE_TOOLCHAIN_FILE="emsdk/upstream/emscripten/cmake/Modules/Platform/Emscripten.cmake" ^
+
 cmake.exe -G"MinGW Makefiles" ^
 -DCMAKE_BUILD_TYPE=Debug ^
 -DBUILD_EMSCRIPTEN=ON ^
+-DCMAKE_TOOLCHAIN_FILE="emsdk/upstream/emscripten/cmake/Modules/Platform/Emscripten.cmake" ^
 -B./cmake-build &&^
 cd cmake-build &&^
 cmake --build . &&^

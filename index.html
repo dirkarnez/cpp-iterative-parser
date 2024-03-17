@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+    <script>
+      var Module = {
+        onRuntimeInitialized: function () {
+            const expr = "5 + 3";
+            alert(`${expr} = ${Module.evaluateExpression(expr)}`);
+        }
+      };
+    </script>
+    
+    <script type="text/javascript" src="./cmake-build/emscripten/cpp-iterative-parser-emscripten.js"></script> 
+</body>
+</html>

@@ -72,7 +72,7 @@ int evaluateExpression(const std::string& expression) {
 
 #ifndef __EMSCRIPTEN__ 
 int main() {
-    std::string expression = "5 + 10";
+    std::string expression = "5 + 4";
     std::cout << "Enter an expression: ";
     // std::getline(std::cin, expression);
 
