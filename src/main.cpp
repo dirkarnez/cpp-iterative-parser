@@ -89,4 +89,29 @@ int main() {
     }
 #endif
 
+/*
 
+// assign : ID '=' expr ';';
+void assign() {
+    match(ID);     // 根据assign规则生成的方法
+    match('=');    // 将当前的输入符号和ID相比较，然后将其消费掉
+    expr();        
+    match(';');    // 通过调用方法expr()来匹配一个表达式
+}
+
+void stat() {
+    switch (token) {
+        case ID:
+            assign();
+            break;
+        case IF:
+            ifstat();
+            break;
+        case WHILE:
+            whilestat();
+            break;
+        default:
+            throw;
+    }
+}
+*/
