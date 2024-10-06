@@ -10,7 +10,12 @@ else()
         "src/main.cpp"
     )
 
-    # target_link_libraries(${PROJECT_NAME} portaudio_static)
+    if (CMAKE_HOST_SYSTEM_NAME MATCHES "Windows" AND NOT CMAKE_SYSTEM_NAME MATCHES "Emscripten")
+        # target_link_libraries(${PROJECT_NAME} ws2_32)
+    else()
+        # target_link_libraries(${PROJECT_NAME} m)
+    endif()
+    
     target_link_options(${PROJECT_NAME} PRIVATE "-static")
 endif()
 
